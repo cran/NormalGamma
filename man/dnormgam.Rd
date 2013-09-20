@@ -9,10 +9,11 @@ Computes the convolution product of a normal and a gamma densities.
 }
 \usage{
 dnormgam(par, x = NULL, N0 = 65536, plot = TRUE, 
-         log = FALSE, tail.cor = TRUE, cor = 1e-15,                                                                                                          
-         mu = par[1], sigma = par[2], k = par[3], theta = par[4])                                                               
-}
-%- maybe also 'usage' for other objects documented here.
+                  log = FALSE, tail.cor = TRUE, cor = 1e-15, 
+                  mu = par[1], sigma = par[2], k = par[3], theta = par[4])
+                          }
+
+
 \arguments{
   \item{par}{
 vector of parameters; \code{(par[1],par[2])} are the mean and standard deviation of the normal distribution and \code{(par[3],par[4])} are the shape and scale parameters of the gamma distribution.
@@ -50,7 +51,7 @@ limit of right tail correction; if \code{tail.cor == TRUE}, linear approximation
 
  }
 \details{
-The convoluted density is computed using the \code{fft} function (Fast Fourier Transform). See details in Plancade S., Rozenholc Y. and Lund E. (http://arxiv.org/abs/1112.4180).
+The convoluted density is computed using the \code{fft} function (Fast Fourier Transform). See details in Plancade S., Rozenholc Y. and Lund E., BMC Bioinfo 2012.
 
 Only one definition of the parameters is required, either  \code{par} or \code{(mu, sigma, k, theta)}. If both are specified and do not match, an error message is returned.
 
@@ -68,14 +69,10 @@ Only one definition of the parameters is required, either  \code{par} or \code{(
    \item{dout   }{vector of values of normal-gamma density.}
 }
 \references{
-Plancade S., Rozenholc Y. and Lund E., Improving  background correction for Illumina BeadArrays: the normal-gamma model 
-(http://arxiv.org/abs/1112.4180).
+Plancade S., Rozenholc Y. and Lund E. "Generalization of the normal-exponential model : exploration of a more accurate parametrisation for the signal distribution on Illumina BeadArrays", BMC Bioinfo 2012, 13(329).
 }
 \author{
 Plancade S. and Rozenholc Y.
-}
-\note{
-%%  ~~further notes~~
 }
 
 %% ~Make other sections like Warning with \section{Warning }{....} ~

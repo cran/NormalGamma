@@ -37,10 +37,10 @@ vector of normal distributed values.
 
 Likelihood maximization is run by the \code{R} function \code{\link{optimx}}. 
 
-By default, maximization is run with the following control parameters:  the maximum number of iterations is equal to \code{1000} and the vector of scaling values for the parameters is \code{(par0[1], par0[2], par0[3]*par0[4],}  \code{sqrt(par0[3])*par0[4])/10} where \code{par0} is the vector of default initial parameters. In case of unsuccessful convergence, maximization is run with  \code{\link{optimx}} default control parameters.
+By default, maximization is run with the following control parameters:  the maximum number of iterations is equal to \code{1000} and the vector of scaling values for the parameters is \code{(par0[1],} \code{ par0[2],} \code{par0[3]*par0[4],}  \code{sqrt(par0[3])*par0[4])/10} where \code{par0} is the vector of default initial parameters. In case of unsuccessful convergence, maximization is run with  \code{\link{optimx}} default control parameters.
 A list of control parameters can also be chosen by the user (see \code{\link{optimx}}).
  
-If \code{par.init == NULL}, the initial parameters are computed in two ways depending if \code{N} is \code{NULL} or not. If \code{N != NULL}, the initial parameters are computed following the method of the moments (see Plancade S., Rozenholc Y. and Lund E. (http://arxiv.org/abs/1112.4180)). If \code{N == NULL}, the initial parameters \code{(par0[1], par0[2])} of the normal distribution are computed following the RMA procedure of Xie Y., Wang X. and Story M. (2009) for the normal-exponential convolution model, and the initial parameters of the gamma distribution, computed following the method of the moments, are \code{ (par0[4] =  ( sd(X)^2 - par0[2]) / (mean(X) - par0[1]), par0[3] = (mean(X) - par0[1] /par0[4])}. Note that the RMA procedure for initial parameter computation when \code{N == NULL} stems from an heuristic adapted to microarray data. For parameters with different magnitude, user should specify initial parameters. 
+If \code{par.init == NULL}, the initial parameters are computed in two ways depending if \code{N} is \code{NULL} or not. If \code{N != NULL}, the initial parameters are computed following the method of the moments (see Plancade S., Rozenholc Y. and Lund E., BMC Bioinfo 2012). If \code{N == NULL}, the initial parameters \code{(par0[1], par0[2])} of the normal distribution are computed following the RMA procedure of Xie Y., Wang X. and Story M. (2009) for the normal-exponential convolution model, and the initial parameters of the gamma distribution, computed following the method of the moments, are \code{(par0[4]=}\code{(sd(X)^2-par0[2])/}\code{(mean(X)-par0[1]),} \code{par0[3]=}\code{(mean(X)-}\code{par0[1]/par0[4])}. Note that the RMA procedure for initial parameter computation when \code{N == NULL} stems from an heuristic adapted to microarray data. For parameters with different magnitude, user should specify initial parameters. 
 
 
 }
@@ -53,17 +53,14 @@ If \code{par.init == NULL}, the initial parameters are computed in two ways depe
   }
 }
 \references{
-Plancade S., Rozenholc Y. and Lund E., Improving  background correction for Illumina BeadArrays: the normal-gamma model (http://arxiv.org/abs/1112.4180).
-
+Plancade S., Rozenholc Y. and Lund E. "Generalization of the normal-exponential model : exploration of a more accurate parametrisation for the signal distribution on Illumina BeadArrays", BMC Bioinfo 2012, 13(329).
 
 Xie Y. Wang X. and Story M. (2009), Statistical methods of background correction for Illumina BeadArray data, \emph{Bioinformatics},  \bold{25}(6), 751--757.
 }
 \author{
 Plancade S. and Rozenholc Y.
 }
-\note{
-%%  ~~further notes~~
-}
+
 
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 

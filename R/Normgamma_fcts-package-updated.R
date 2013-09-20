@@ -1,5 +1,6 @@
 require(optimx)	
 
+
 dnormgam = function(par,x=NULL,N0=65536,plot=TRUE,log=FALSE, tail.cor=TRUE,cor=1e-15,mu=par[1],sigma=par[2],k=par[3],theta=par[4]) {
 	
 	# compute the density of X = S + B
@@ -139,7 +140,8 @@ normgam.fit = function(X, N =NULL, par.init=NULL, lower = NULL, upper = NULL, co
 Regular <- X
 Negative <- N
 
-
+## Is R version >= 3.0.0 ?
+Rv3 <- (R.Version()$major>2)
 
 mkdfftNormalGammaOptim = function(Regular,Negative) {
 	
@@ -223,9 +225,6 @@ if(!((k0>0)&(theta0>0))){
      k0=1
      theta0= max(mean(Regular) - mu0,mu0/10) }
 
-
-
-
           }
  
  
@@ -258,7 +257,14 @@ part0 = ptrans(c(mu0,sigma0,k0,theta0))
 
 if(length(control)==0) control = list(maxit=1000,parscale=part0/10,dowarn=FALSE)
 
+
+
 # Define initial new parameters
+
+
+if( (length(par.init)==4)&(length(lower)==4)&(sum(lower<par.init) != 4)) stop('STOP : Initial values are out of bounds')
+if( (length(par.init)==4)&(length(upper)==4)&(sum(upper>par.init) != 4)) stop('STOP : Initial values are out of bounds')
+
 if(length(par.init)!=4){par.initt=part0
 	}else{ par.initt = ptrans(par.init)}
 	
@@ -272,18 +278,31 @@ if(length(N)==0){
 
    if(sum((lowert<par.initt)*(uppert>par.initt)) == 4 ){
           MLEt = optimx(par.initt, dfftNormalGammaOptim, method = "L-BFGS-B", lower = lowert, upper = uppert, control = control)
-	}else{ MLEt=list(par=list(NA,NA,NA,NA)) }
+         if(Rv3){ coef.mlet <- coef(MLEt) } else { coef.mlet = unlist(MLEt$par)}
+	}else{ coef.mlet=NA }
 	
-	if (sum(is.na(unlist(MLEt$par)))){
+	if (sum(is.na(coef.mlet))){
 	 if(length(lower0)+length(upper0) !=0){ print("Maximum out of bounds , Run maximization without box constraints")    }
-	MLEt = optimx(par.initt,lower=c(-Inf,0,0,0), dfftNormalGammaOptim, method = "L-BFGS-B",
-	control = control)
+	MLEt = optimx(par.initt,lower=c(-Inf,0,0,0), dfftNormalGammaOptim, method = "L-BFGS-B", control = control)
+      if(Rv3){ coef.mlet <- coef(MLEt) } else { coef.mlet = unlist(MLEt$par)} 	
     }
 	
 	
-	if (sum(is.na(unlist(MLEt$par)))){
-    print('Maximization with default optimx control parameters ')
-	MLEt = optimx(par.initt,lower=c(-Inf,0,0,0), dfftNormalGammaOptim, method = "L-BFGS-B" )}
+	#if ((sum(is.na(coef.mlet))!=0)&(length(control0)>0)){
+   # print('Maximization with default optimx control parameters ')
+    
+    
+    	if (sum(is.na(coef.mlet))!=0){
+  if((length(control0)>0)) print('Maximization with default optimx control parameters ')
+MLEt = optimx(par.initt,lower=c(-Inf,0,0,0), dfftNormalGammaOptim, method = "L-BFGS-B" )
+	if(Rv3){ coef.mlet <- coef(MLEt) } else { coef.mlet = unlist(MLEt$par)} 
+	}
+	
+	if ((sum(is.na(coef.mlet))!=0)&(length(par.init)==4) ){
+	  print('Convergence fails with initial values ->  Maximization with default initial values ')
+	MLEt = optimx(part0,lower=c(-Inf,0,0,0), dfftNormalGammaOptim, method = "L-BFGS-B" )}
+
+
 	
 
 }else{
@@ -292,31 +311,51 @@ if(length(N)==0){
     if(length(upper)==0) { uppert = c(max(Negative),sd(Negative)*3,part0[3]*3,part0[4]*3) } else { uppert = ptrans(upper)}
   
     if(sum((lowert<par.initt)*(uppert>par.initt)) == 4 ){	MLEt = optimx(par.initt, dfftNormalGammaOptim, method = "L-BFGS-B", lower = lowert,  upper = uppert, control = control)
-	     }else{MLEt=list(par=list(NA,NA,NA,NA))}
+	if(Rv3){ coef.mlet <- coef(MLEt) } else { coef.mlet = unlist(MLEt$par)} 
+	
+	     }else{coef.mlet=NA}
 	
      
 # if the optimization produces NA, restarts with non bounded optimization
-if (sum(is.na(unlist(MLEt$par)))){
+if (sum(is.na(coef.mlet))){
 	 if(length(lower0)+length(upper0) !=0){ print("Maximum out of bounds , Run maximization without box constraints")    }
-	MLEt = optimx(par.initt,lower=c(-Inf,0,0,0), dfftNormalGammaOptim, method = "L-BFGS-B",
-	control = control)
+	MLEt = optimx(par.initt,lower=c(-Inf,0,0,0), dfftNormalGammaOptim, method = "L-BFGS-B", control = control)
+	
+	if(Rv3){ coef.mlet <- coef(MLEt) } else { coef.mlet = unlist(MLEt$par)} 
     }
 
+if ((sum(is.na(coef.mlet))!=0)&(length(control0)>0)){
+    print('Maximization with default optimx control parameters ')
+	MLEt = optimx(par.initt,lower=c(-Inf,0,0,0), dfftNormalGammaOptim, method = "L-BFGS-B" )
+	if(Rv3){ coef.mlet <- coef(MLEt) } else { coef.mlet = unlist(MLEt$par)} 
+	}
 
-}            
+if ((sum(is.na(coef.mlet))!=0)&(length(par.init)==4) ){
+	  print('Convergence fails with user initial values ->  Maximization with default initial values ')
+	MLEt = optimx(part0,lower=c(-Inf,0,0,0), dfftNormalGammaOptim, method = "L-BFGS-B" )}
 
-# optimx returns a data.frame, need unlist  
-par = unlist(MLEt$par,use.names=FALSE)
-lik = as.numeric(MLEt$fvalues)
-conv = as.numeric(MLEt$conv)
+
+
+}           
+
+# extract parameter estimates, likelihood and convergence code.
+if(Rv3){ par <- coef(MLEt)
+	     lik = MLEt$value
+	     conv = MLEt$convcode
+} else { par = unlist(MLEt$par,use.names=FALSE)
+	 	 lik = as.numeric(MLEt$fvalues)
+	 	 conv = as.numeric(MLEt$conv)
+	 	 } 
+
+
 
 # reverse transformation of parameters      
-par=c(par[1],par[2], (par[3]/par[4])^2,par[4]^2/par[3] )
+par <-  c(par[1],par[2], (par[3]/par[4])^2,par[4]^2/par[3] )
+
 L=list()
 L$par=par
 L$lik=lik
 L$conv=conv
-
 
 return(L)		
 		

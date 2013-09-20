@@ -9,7 +9,7 @@ Background correction using the normal+gamma model
 \description{
 The \code{NormalGamma} package is devoted to the density convolution model Y = X + N where X and N are independent variables with respectively gamma and normal distributions. For this model called further normal-gamma convolution model, this package proposes the computation of the convoluted density, the parameter estimation by likelihood maximization and the background correction obtained by deconvolution.
 
-This package has been used to implement the background correction method for Illumina microarray data presented in Plancade S., Rozenholc Y. and Lund E. (http://arxiv.org/abs/1112.4180). 
+This package has been used to implement the background correction method for Illumina microarray data presented in Plancade S., Rozenholc Y. and Lund E., BMC Bioinfo 2012. 
 
 }
 \details{
@@ -36,25 +36,22 @@ Plancade S. and Rozenholc Y.
  
 
 
-Maintainer: Plancade S. <sandra.c.plancade@uit.no>
+Maintainer: Plancade S. <Sandra.Plancade@jouy.inra.fr>
 
 }
 \references{
-Plancade S., Rozenholc Y. and Lund E., Improving  background correction for Illumina BeadArrays: the normal-gamma model (http://arxiv.org/abs/1112.4180).
+Plancade S., Rozenholc Y. and Lund E. "Generalization of the normal-exponential model : exploration of a more accurate parametrisation for the signal distribution on Illumina BeadArrays", BMC Bioinfo 2012, 13(329).
 
 %~~ Literature or other references for background information ~~
 }
 %~~ Optionally other standard keywords, one per line, from file KEYWORDS in the ~~
 %~~ R documentation directory ~~
 \keyword{ package }
-\seealso{
-%~~ Optional links to other man pages, e.g. ~~
-%~~ \code{\link[<pkg>:<pkg>-package]{<pkg>}} ~~
-}
+
 \examples{
 
-# Load Illumina microarray data previously transformed into two sets of intensities corresponding
-# to negative and regular probes.
+# Load Illumina microarray data previously transformed into two sets of intensities
+# corresponding to negative and regular probes.
 
 \dontrun{
 

@@ -35,7 +35,7 @@ logical; if \code{TRUE} and \code{par[3]} is smaller than 1, an ad-hoc translati
 
  }
 \details{
-\code{normgam.signal} performs background correction in an additive background noise+signal model with a normal background noise and a gamma-distributed signal. The corrected value from an observed intensity \code{x} is the expectation of the signal given the signal and noise distributions. For a set of parameters \code{(mu, sigma, k, theta)}, it is given by the ratio of the convolution product of  \code{\link{dgamma}(x, shape=k+1, scale=theta)}  and \code{\link{dnorm}(x, mean=mu, sd=sigma)} and the convolution product of  \code{\link{dgamma}(x, shape=k, scale=theta)}  and \code{\link{dnorm}(x, mean=mu, sd=sigma)}. For more details see Plancade S., Rozenholc Y. and Lund E. (http://arxiv.org/abs/1112.4180).
+\code{normgam.signal} performs background correction in an additive background noise+signal model with a normal background noise and a gamma-distributed signal. The corrected value from an observed intensity \code{x} is the expectation of the signal given the signal and noise distributions. For a set of parameters \code{(mu, sigma, k, theta)}, it is given by the ratio of the convolution product of  \code{\link{dgamma}(x, shape=k+1, scale=theta)}  and \code{\link{dnorm}(x, mean=mu, sd=sigma)} and the convolution product of  \code{\link{dgamma}(x, shape=k, scale=theta)}  and \code{\link{dnorm}(x, mean=mu, sd=sigma)}. For more details see Plancade S., Rozenholc Y. and Lund E., BMC Bioinfo 2012.
 
 
 If \code{tail.cor = TRUE}, a linear approximation of right tail is applied to values with density estimate smaller than \code{cor} in the computation of normal-gamma convoluted densities (see \code{\link{dnormgam}}).
@@ -47,15 +47,12 @@ Only one definition of the parameters is required, either  \code{par} or \code{(
 Vector of background noise-corrected intensities.
 }
 \references{
-Plancade S., Rozenholc Y. and Lund E., Improving  background correction for Illumina BeadArrays: the normal-gamma model (http://arxiv.org/abs/1112.4180).
-
+Plancade S., Rozenholc Y. and Lund E. "Generalization of the normal-exponential model : exploration of a more accurate parametrisation for the signal distribution on Illumina BeadArrays", BMC Bioinfo 2012, 13(329).
 }
 \author{
 Plancade S. and Rozenholc Y.
 }
-\note{
-%%  ~~further notes~~
-}
+
 
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 

@@ -1,9 +1,9 @@
-48ccb740512f81e67fce600adda64ac1 *DESCRIPTION
-cf51ea1cc8db7386dc7e18de795381b7 *NAMESPACE
-5ee7028632ad3f61df43909acb8c35bc *R/Normgamma_fcts-package.R
+2ecdbb0eaec9bca4622ab8215aea45d6 *DESCRIPTION
+8b54e5a89fbda3af5e077053d40bec76 *NAMESPACE
+4deef6fbe7b05fb4cfb9dcc01c9d94b0 *R/Normgamma_fcts-package-updated.R
 7f70b95cf3c71ec5643551905030f97c *data/RegNegIntensities_Example.RData
-66e45c35888b24f213709faa10e0fa58 *man/Intensities.Rd
-a77976fdea17b63eb5fe5319a3a6b205 *man/NormalGamma-package.Rd
-4f4d9373c92637df04c875bca125f092 *man/dnormgam.Rd
-6d07c18732a8a379b80ff50c5e1ca99e *man/normgam.fit.Rd
-33844d3c8d9a95cab4d3bfd1bbf5bd9a *man/normgam.signal.Rd
+e081f376ba582e2769ad2cb7cf0101bd *man/Intensities.Rd
+1d831a395f338881d80d3304f8999a89 *man/NormalGamma-package.Rd
+5078891deec19d4ef32e5da9fcad5c91 *man/dnormgam.Rd
+ea1d64ac30a03033ce2bdc3bca71c954 *man/normgam.fit.Rd
+a3545055e96d8fa209c9e44f12b856c8 *man/normgam.signal.Rd
